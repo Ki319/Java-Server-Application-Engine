@@ -1,18 +1,29 @@
 package com.polaris.chat;
 import java.io.IOException;
+import java.sql.SQLException;
 
 import org.lwjgl.glfw.GLFW;
 
 import com.polaris.engine.Application;
+import com.polaris.engine.MySQL;
 import com.polaris.engine.network.Packet;
 import com.polaris.engine.render.Window;
 
 public class Server extends Application
 {
+	public static MySQL database;
 	
 	static
 	{
-		Packet.addPacket(PacketContent.class);
+		try
+		{
+			database = new MySQL("", "root", "password");
+		}
+		catch (ClassNotFoundException | SQLException e)
+		{
+			e.printStackTrace();
+		}
+		Packet.addPacket(PacketLogin.class);
 		Packet.sortPackets();
 	}
 

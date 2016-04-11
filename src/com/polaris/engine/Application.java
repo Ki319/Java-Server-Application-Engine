@@ -112,6 +112,15 @@ public abstract class Application extends App
 		stopServerThread = true;
 	}
 	
+	public void update(double delta)
+	{
+		for(String uuid : playerNetworks.keySet())
+		{
+			playerNetworks.get(uuid).update(delta);
+		}
+		super.update(delta);
+	}
+	
 	public ServerNetwork getNetwork(UUID uuid)
 	{
 		return playerNetworks.get(uuid);
